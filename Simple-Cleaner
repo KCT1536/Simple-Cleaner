@@ -1,0 +1,119 @@
+@echo off
+:begin
+echo Seclet a language(Type "lang" to show the list of supported language)
+set /p command=
+if "%command%"=="lang" goto ll
+if "%command%"=="zhcn" goto zhcn
+if "%command%"=="enus" goto enus
+echo Invaild Code(Type "lang" to show the list of supported language)
+goto begin
+:ll
+echo		Language--------Code
+echo		English(US)-----enus
+echo		简体中文--------zhcn
+goto begin
+:zhcn
+echo    欢迎使用清理软件
+echo    请注意！！！以下操作不可逆，请谨慎选择
+echo    请注意！！！以下操作不可逆，请谨慎选择
+echo    请注意！！！以下操作不可逆，请谨慎选择
+echo    1.清理缓存软件(默认为*.tmp文件)
+echo    2.清理无用Log文件
+echo    3.清理希沃视频展台缓存(EasiCameraPhoto)
+echo    4.自动清理(将会运行123)
+echo    5.下载更新
+echo    6.打开系统自带清理软件(Cleanmgr.exe)
+set /p o=
+if "%o%"=="1" goto tmp
+if "%o%"=="2" goto log
+if "%o%"=="3" goto png
+if "%o%"=="4" goto all
+if "%o%"=="5" goto upd
+if "%o%"=="6" goto clm
+echo 未知的服务，请重新输入
+goto zhcn
+:tmp 
+@echo off
+cd C:\
+echo 正在清理...
+del %temp% /f /q
+del *.tmp /f /q /s 
+echo 清理完成!
+goto zhcn
+:log
+cd C:\
+echo 正在清理...(请耐心等待)
+del *.log /f /q /s
+echo 清理完成!
+goto zhcn
+:png
+echo 正在清理...(请耐心等待)
+rd /q /s D:\EasiCameraPhoto\
+echo 清理完成!
+goto zhcn
+:all
+echo 正在清理...(请耐心等待)
+rd /q /s D:\EasiCameraPhoto\
+cd C:\
+del *.log /f /q /s
+del %temp% /f /q
+del *.tmp /f /q /s
+echo 清理完成!
+goto zhcn
+:upd
+@echo off
+echo 未设置更新链接，请联系开发者
+goto zhcn
+:clm
+cleanmgr
+goto menu
+:enus
+echo    Welcome to use the Cleaning Software
+echo    Be careful!!!The action can't be recovered.Choose wisely
+echo    Be careful!!!The action can't be recovered.Choose wisely
+echo    Be careful!!!The action can't be recovered.Choose wisely
+echo    1.Clean the Cache(*.tmp)
+echo    2.Clean the useless log file
+echo    3.Auto Clean(Will run 123)
+echo    4.Install Update
+echo    5.Open the clean software in system(Cleanmgr.exe)
+set /p p=
+if "%p%"=="1" goto tmp2
+if "%p%"=="2" goto log2
+if "%p%"=="3" goto all2
+if "%p%"=="4" goto upd2
+if "%p%"=="5" goto clm2
+echo Unknown service
+goto enus
+:tmp2 
+@echo off
+cd C:\
+echo Cleaning
+del %temp% /f /q
+del *.tmp /f /q /s 
+echo Done!
+goto enus
+:log2
+cd C:\
+echo Cleaning
+del *.log /f /q /s
+echo Done!
+goto enus
+:png2
+echo Cleaning
+rd /q /s D:\EasiCameraPhoto\
+echo Done!
+goto enus
+:all2
+echo Cleaning
+rd /q /s D:\EasiCameraPhoto\
+cd C:\
+del *.log /f /q /s
+del %temp% /f /q
+del *.tmp /f /q /s
+echo Done!
+goto enus
+:upd2
+@echo off
+echo Update link is unready.Please Contact The Developer
+goto enus
