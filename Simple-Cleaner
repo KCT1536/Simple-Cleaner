@@ -3,8 +3,8 @@
 echo Seclet a language(Type "lang" to show the list of supported language)
 set /p command=
 if "%command%"=="lang" goto ll
-if "%command%"=="zhcn" goto zhcn
 if "%command%"=="enus" goto enus
+if "%command%"=="zhcn" goto zhcn
 echo Invaild Code(Type "lang" to show the list of supported language)
 goto begin
 :ll
@@ -21,8 +21,9 @@ echo    1.清理缓存软件(默认为*.tmp文件)
 echo    2.清理无用Log文件
 echo    3.清理希沃视频展台缓存(EasiCameraPhoto)
 echo    4.自动清理(将会运行123)
-echo    5.下载更新
+echo    5.下载更新(输入htu来了解更新是如何进行的)
 echo    6.打开系统自带清理软件(Cleanmgr.exe)
+echo    7.更换语言
 set /p o=
 if "%o%"=="1" goto tmp
 if "%o%"=="2" goto log
@@ -30,7 +31,10 @@ if "%o%"=="3" goto png
 if "%o%"=="4" goto all
 if "%o%"=="5" goto upd
 if "%o%"=="6" goto clm
+if "%o%"=="htu" goto htu
+if "%o%"=="7" goto cl
 echo 未知的服务，请重新输入
+pause
 goto zhcn
 :tmp 
 @echo off
@@ -47,13 +51,18 @@ del *.log /f /q /s
 echo 清理完成!
 goto zhcn
 :png
+@echo off
+echo 请输入希沃视频展台缓存(EasiCameraPhoto)所在的磁盘盘符(如C:)
+set /p dp=
 echo 正在清理...(请耐心等待)
-rd /q /s D:\EasiCameraPhoto\
+rd /q /s %dp%\EasiCameraPhoto\
 echo 清理完成!
 goto zhcn
 :all
+echo 请输入希沃视频展台缓存(EasiCameraPhoto)所在的磁盘盘符(如C:)
+set /p dpp=
 echo 正在清理...(请耐心等待)
-rd /q /s D:\EasiCameraPhoto\
+rd /q /s %dpp%\EasiCameraPhoto\
 cd C:\
 del *.log /f /q /s
 del %temp% /f /q
@@ -62,11 +71,18 @@ echo 清理完成!
 goto zhcn
 :upd
 @echo off
-echo 未设置更新链接，请联系开发者
+echo 下载更新请注意日期，尽量选择最新的
+start https://github.com/KCT1536/Simple-Cleaner/releases
+echo 请将下载好的更新文件拖动到此处
+set /p ud=
+move %ud% "Cleaner.bat"
 goto zhcn
 :clm
 cleanmgr
-goto menu
+goto zhcn
+:htu
+echo 将下载好的文件拖入到提示符后，程序将会删除原有的版本后将下载好的文件移动到原先版本所在的目录
+goto zhcn
 :enus
 echo    Welcome to use the Cleaning Software
 echo    Be careful!!!The action can't be recovered.Choose wisely
@@ -75,15 +91,19 @@ echo    Be careful!!!The action can't be recovered.Choose wisely
 echo    1.Clean the Cache(*.tmp)
 echo    2.Clean the useless log file
 echo    3.Auto Clean(Will run 123)
-echo    4.Install Update
+echo    4.Install Update(Type "htu" to know the program how to update)
 echo    5.Open the clean software in system(Cleanmgr.exe)
+echo    6.Change language
 set /p p=
 if "%p%"=="1" goto tmp2
 if "%p%"=="2" goto log2
 if "%p%"=="3" goto all2
 if "%p%"=="4" goto upd2
 if "%p%"=="5" goto clm2
-echo Unknown service
+if "%p%"=="htu" goto htu2
+if "%p%"=="6" goto begin
+echo Unknonw service,Try other service
+pause
 goto enus
 :tmp2 
 @echo off
@@ -99,14 +119,8 @@ echo Cleaning
 del *.log /f /q /s
 echo Done!
 goto enus
-:png2
-echo Cleaning
-rd /q /s D:\EasiCameraPhoto\
-echo Done!
-goto enus
 :all2
 echo Cleaning
-rd /q /s D:\EasiCameraPhoto\
 cd C:\
 del *.log /f /q /s
 del %temp% /f /q
@@ -115,5 +129,19 @@ echo Done!
 goto enus
 :upd2
 @echo off
-echo Update link is unready.Please Contact The Developer
+echo When downloading updates, please note the date and try to select the latest version
+start https://github.com/KCT1536/Simple-Cleaner/releases
+echo Please drag the downloaded update file here
+set /p ud=
+move %ud% "Cleaner.bat"
 goto enus
+:clm2
+cleanmgr
+goto enus
+:htu2
+@echo off
+echo Drag the downloaded file into the Command Prompt,and the program will delete the original version and move the downloaded file to the directory where the original version was located
+goto enus
+:cl
+cls
+goto begin
